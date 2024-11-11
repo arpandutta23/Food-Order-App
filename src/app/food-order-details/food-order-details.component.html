@@ -1,0 +1,44 @@
+<div class="container">
+  <h2>Employee Food Order Details - November</h2>
+
+  <div class="tabs">
+    <button class="tab-button" [class.active]="selectedTab === 1" (click)="selectTab(1)">Reports</button>
+    <button class="tab-button" [class.active]="selectedTab === 2" (click)="selectTab(2)">Fine</button>
+  </div>
+
+  <div *ngIf="selectedTab === 1">
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Breakfast</th>
+          <th>Lunch</th>
+          <th>Dinner</th>
+          <th>Fine (₹)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let report of reports">
+          <td>{{ report.date }}</td>
+          <td>{{ report.opt_ins?.breakfast || 'N/A' }}</td>
+          <td>{{ report.opt_ins?.lunch || 'N/A' }}</td>
+          <td>{{ report.opt_ins?.dinner || 'N/A' }}</td>
+          <td>
+            {{
+              (report.opt_ins?.breakfast === 'Pending' ? 100 : 0) +
+              (report.opt_ins?.lunch === 'Pending' ? 100 : 0) +
+              (report.opt_ins?.dinner === 'Pending' ? 100 : 0)
+            }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="selectedTab === 2">
+    <h3>Fine Details</h3>
+  </div>
+
+
+  <h3>Total Fine: ₹{{ totalFine.toFixed(2) }}</h3>
+</div>
